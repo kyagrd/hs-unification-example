@@ -14,12 +14,6 @@ import           Data.Map.Strict         hiding (insert, map, null)
 import qualified Data.Map.Strict         as M
 import           Unbound.LocallyNameless
 
-{-
-Straightforward implemntation of the rule-based unfication algorithm U
-from the unfication chapter of the "handbook of automated reasoning"
-http://www.cs.bu.edu/~snyder/publications/UnifChapter.pdf
--}
-
 type Nm = Name Tm
 type Sym = String
 
@@ -38,6 +32,12 @@ instance Subst Tm Eqn
 
 occurs x t = x `elem` (fv t :: [Nm])
 
+{-
+Straightforward implemntation of the rule-based unfication algorithm U
+from the unfication chapter of the "handbook of automated reasoning"
+http://www.cs.bu.edu/~snyder/publications/UnifChapter.pdf
+-}
+
 ustep :: Monad m => ([Eqn], Map Nm Tm) -> m ([Eqn], Map Nm Tm)
 ustep (t1@(D f1 ts1) `Eq` t2@(D f2 ts2) : es, s)
   | f1==f2 && length ts1==length ts2 = return (zipWith Eq ts1 ts2 ++ es, s)
@@ -51,7 +51,7 @@ ustep (V x `Eq` t : es, s)
   | otherwise = return (es', s')
     where
       es' = subst x t es
-      s' = M.insert x t $ M.map (subst x t) s
+      s' = M.insert x t s
 
 u :: Monad m => ([Eqn], Map Nm Tm) -> m (Map Nm Tm)
 u ([], s) = return s
