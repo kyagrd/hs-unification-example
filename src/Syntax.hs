@@ -42,9 +42,11 @@ ustep (t1@(D f1 ts1) `Eq` t2@(D f2 ts2) : es, s)
   | otherwise = fail $ show t1 ++" /= " ++ show t2
 ustep (t1@(D _ _) `Eq` t2@(V x) : es, s) = return (t2 `Eq` t1 : es, s)
 ustep (t1@(V x) `Eq` t2@(V y) : es, s)
+  | x == y = return (es, s)
   | x > y = ustep (t2 `Eq` t1 : es, s)
 ustep (V x `Eq` t : es, s)
   | occurs x t = fail $ show x ++" occurs in "++show t
+  | M.member x s = return (s!x `Eq` t : es', s')
   | otherwise = return (es', s')
     where
       es' = subst x t es
