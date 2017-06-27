@@ -1,4 +1,5 @@
 # hs-unification-example
+Implementation of the rule-based unification algorithm U using unbound.
 
 Here is how to run the unification `f(x,f(y)) =?= f(z,x)`.
 ```
