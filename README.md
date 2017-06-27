@@ -28,7 +28,7 @@ Running the above example step-by-step:
 ```
 
 
-Occurs check indirectly by via multiple variables is working:
+Occurs check indirectly by via multiple variables is working, for example, `x=?=f(y), y=?=f(z), z=?=f(x)`:
 ```
 *Main Syntax> u ([V x `Eq` D"f"[V y], V y `Eq` D"f"[V z], V z `Eq` D"f"[V x]], emptyMap)
 *** Exception: user error (z occurs in D "f" [D "f" [D "f" [V z]]])
