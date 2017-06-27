@@ -2,6 +2,7 @@ module Main where
 import           Syntax
 import           Unbound.LocallyNameless
 import           Unif1
+-- import           Unif2
 import qualified Data.Map.Strict as M
 
 x,y,z :: Nm
