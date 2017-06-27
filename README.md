@@ -3,8 +3,8 @@ Implementation of the rule-based unification algorithm U using unbound.
 
 Here is how to run the unification `f(x,f(y)) =?= f(z,x)`.
 ```
-Ok, modules loaded: Syntax.
-[2 of 2] Compiling Main             ( /home/kyagrd/github/kyagrd/hs-unification-example/src/Main.hs, interpreted )
+kyagrd@kyagrd:~/github/kyagrd/hs-unification-example$ stack ghci
+...
 Ok, modules loaded: Main, Syntax.
 Loaded GHCi configuration from /tmp/ghci11370/ghci-script
 *Main Syntax> let emptyMap = Data.Map.Strict.empty
