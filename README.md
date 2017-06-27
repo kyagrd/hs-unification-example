@@ -11,3 +11,9 @@ Loaded GHCi configuration from /tmp/ghci10172/ghci-script
 fromList [(x,D "f" [V y]),(z,D "f" [V y])]
 ```
 That is, `{ x |-> f(y), z |-> f(y) }` as expected.
+
+Occurs check indirectly by via other variables:
+```
+*Main Syntax> u ([V x `Eq` D"f"[V y], V y `Eq` D"f"[V z], V z `Eq` D"f"[V x]], Data.Map.Strict.empty)
+*** Exception: user error (z occurs in D "f" [D "f" [D "f" [V z]]])
+```
