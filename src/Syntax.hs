@@ -31,7 +31,9 @@ $(derive [''Tm, ''Eqn])
 instance Alpha Tm
 instance Alpha Eqn
 
-instance Subst Tm Tm
+instance Subst Tm Tm where
+  isvar (V x) = Just (SubstName x)
+  isvar _     = Nothing
 instance Subst Tm Eqn
 
 occurs x t = x `elem` (fv t :: [Nm])
@@ -46,7 +48,6 @@ ustep (t1@(V x) `Eq` t2@(V y) : es, s)
   | x > y = ustep (t2 `Eq` t1 : es, s)
 ustep (V x `Eq` t : es, s)
   | occurs x t = fail $ show x ++" occurs in "++show t
-  | M.member x s = return (s!x `Eq` t : es', s')
   | otherwise = return (es', s')
     where
       es' = subst x t es
