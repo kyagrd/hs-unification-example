@@ -1,10 +1,13 @@
 module Unif2 where
+import           Control.Applicative
 import           Data.List               hiding (insert, map, null)
-import           Data.Map.Strict         hiding (insert, map, null)
+import           Data.Map.Strict         hiding (insert, map, mapMaybe, null)
 import qualified Data.Map.Strict         as M
+import           Data.Maybe
 import           Syntax
 import           Unbound.LocallyNameless
-
+{-# ANN module "HLint: ignore Use fmap" #-}
+{-# ANN module "HLint: ignore Use mappend" #-}
 
 {-
 Alternative implemntation of the rule-based unfication algorithm U
@@ -19,11 +22,10 @@ they require further following the links. There is also a helper function
 expand that expands the term according to the current substitution.
 -}
 
-deepOccurs s x t = occurs x t || any (deepOccurs s x) ts
-  where ts = [u | Just u <- map (flip M.lookup s) (fv t :: [Nm])]
+deepOccurs s x = occurs x . expand s
 
 expand s (V x) = case M.lookup x s of { Nothing -> V x; Just u -> expand s u }
-expand s (D "f" ts) = D "f" $ map (expand s) ts
+expand s (D "f" ts) = D "f" (expand s <$> ts)
 
 ustep :: Monad m => ([Eqn], Map Nm Tm) -> m ([Eqn], Map Nm Tm)
 ustep (t1@(D f1 ts1) `Eq` t2@(D f2 ts2) : es, s)
