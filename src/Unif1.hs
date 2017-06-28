@@ -4,7 +4,7 @@ import           Data.Map.Strict         hiding (insert, map, null)
 import qualified Data.Map.Strict         as M
 import           Syntax
 import           Unbound.LocallyNameless
-
+{-# ANN module "HLint: ignore Use mappend" #-}
 
 {-
 Straightforward implemntation of the rule-based unfication algorithm U
