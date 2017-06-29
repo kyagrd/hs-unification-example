@@ -81,10 +81,13 @@ transClosure step x = xs' <|> asum (transClosure step <$> xs')
 -- example unification (finding unifier modulo subterm convergnet rewriting)
 -- basically implmented http://www.lsv.fr/~ciobaca/subvariant/
 
-unifiersModulo rules (t1,t2) = do
-  (D"_"[t1',t2'], _, s) <- kleeneClosure (narrBy rules)
-                            (D"_"[t1,t2], subtermInit $ D"_"[t1,t2], emptyMap)
-  u ([t1' `Eq ` t2'], s)
+unifiersModulo rules (t1,t2) =
+  do (D"_"[t1',t2'], _, s) <- kleeneClosure (narrBy rules)
+                                (D"_"[t1,t2], subtermInit $ D"_"[t1,t2], emptyMap)
+     s <- u ([t1' `Eq ` t2'], s)
+     return $ M.filterWithKey (\k _ -> k `elem` fvs) s
+  where
+    fvs = nub $ fv (t1,t2) :: [Nm]
 
 x,y,z :: Nm
 x = s2n "x"

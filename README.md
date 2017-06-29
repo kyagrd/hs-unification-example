@@ -67,7 +67,8 @@ Here is a run of the same example form the SubVariant homepage:
 
 *Main> mapM_ print $ nub $ unifiersModulo ruleSet1 (t1,t2)
 fromList [(x,V z)]
-fromList [(x,D "enc" [D "dec" [V z,V y3],V y3]),(x4,D "dec" [V z,V y3]),(y,V y3)]
-fromList [(x4,D "dec" [V x,V y3]),(y,V y3),(z,D "enc" [D "dec" [V x,V y3],V y3])]
+fromList [(x,D "enc" [D "dec" [V z,V y3],V y3]),(y,V y3)]
+fromList [(y,V y3),(z,D "enc" [D "dec" [V x,V y3],V y3])]
 fromList [(x,D "enc" [V x4,V y3]),(y,V y3),(z,D "enc" [V x4,V y3])]
+
 ```
