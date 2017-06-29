@@ -48,12 +48,15 @@ the substitution mapping instead of repetitive cascading application of
 substitutions to the rest of the equations. `Unif2` implementation can
 easily be refactored to abstract the substitution mapping via the state monad.
 
-# Implementing unification modulo subterm convergent rewriting
+# Unification modulo subterm convergent rewriting
 
 `Main` module contains an implementation of unification modulo subterm convergent rewriting,
 which is a Haskell implementation of [SubVariant](http://www.lsv.fr/~ciobaca/subvariant/).
 Here is a run of the same example form the SubVariant homepage:
 ```
+*Main> rule1
+(D "dec" [D "enc" [V x,V y],V y],V x)
+
 *Main> ruleSet1
 [bind [x,y](D "dec" [D "enc" [V 0@0,V 0@1],V 0@1],V 0@0)]
 
