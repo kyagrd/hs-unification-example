@@ -78,6 +78,10 @@ kleeneClosure step x = return x <|> transClosure step x
 transClosure step x = xs' <|> asum (transClosure step <$> xs')
   where xs' = step x
 
+subvariant rules t =
+  (\(a,_,c)->(a,c)) <$> kleeneClosure (narrBy rules) (t, subtermInit t, emptyMap)
+
+
 -- example unification (finding unifier modulo subterm convergnet rewriting)
 -- basically implmented http://www.lsv.fr/~ciobaca/subvariant/
 

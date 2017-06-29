@@ -62,7 +62,7 @@ Here is a run of the same example form the SubVariant homepage:
 
 *Main> let t1 = D "dec" [V x,V y]; t2 = D "dec" [V z,V y]
 
-*Main> mapM_ print $ nub $ fmap (\(a,b,c)->(a,c)) $ kleeneClosure (narrBy ruleSet1) (D"_"[t1,t2],subtermInit(D"_"[t1,t2]),emptyMap)
+*Main> mapM_ print $ nub $ subvariant ruleSet1 (D"_"[t1,t2])
 (D "_" [D "dec" [V x,V y],D "dec" [V z,V y]],fromList [])
 (D "_" [V x4,D "dec" [V z,V y3]],fromList [(x,D "enc" [V x4,V y3]),(y,V y3)])
 (D "_" [D "dec" [V x,V y3],V x4],fromList [(y,V y3),(z,D "enc" [V x4,V y3])])
