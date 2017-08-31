@@ -107,3 +107,30 @@ main :: IO ()
 main = do
   putStrLn "hello world"
   putStrLn "hello world"
+
+-- ======================================================================
+-- ======================================================================
+-- ======================================================================
+
+true = A "true" []
+false = A "false" []
+eq t1 t2 = A "=" [t1,t2]
+
+
+-- solveD ctx
+{-
+solveD :: Monad m => [Quan] -> Form -> m (Maybe (M.Map Nm Tm))
+solveD ctx (A "true" [])   = return (Just emptyMap)
+solveD ctx (A "false" [])  = return Nothing
+solveD ctx (A "=" [t1,t2]) = -- TODO freshly bind Forall variables before unify
+                             return $ u ([Eq t1 t2], emptyMap)
+solveD ctx f@(A _ _)       = error $ "TODO: solveD"++ show ctx ++" "++ show f
+solveD ctx (Conj x)        = undefined
+solveD ctx (Disj x)        = undefined
+solveD ctx (Forall x)      = undefined
+solveD ctx (Exists x)      = undefined
+solveD ctx (Imp x1 x2)     = undefined
+
+
+solveD ctx
+-}
